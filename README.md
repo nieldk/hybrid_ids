@@ -2,6 +2,10 @@
 
 This project combines the functionality of an Intrusion Detection System (IDS) with an Intrusion Prevention System (IPS), written entirely in Python.
 
+## Want to contribute?
+
+Check out [CONTRIBUTION.md](CONTRIBUTION.md) for guidelines and setup instructions.
+
 ---
 
 ## Real-Time Packet Inspection
