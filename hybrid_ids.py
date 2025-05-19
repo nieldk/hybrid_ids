@@ -5,12 +5,14 @@ with warnings.catch_warnings(action="ignore", category=CryptographyDeprecationWa
 from sklearn.ensemble import IsolationForest
 import pandas as pd
 import time
+import os
 from colorama import Fore, Style
 import string
 
 packet_history = []
 model = IsolationForest(n_estimators=100, contamination=0.01, random_state=42)
 trained = False
+blocked_ips = set()
 
 def extract_features(packet):
     features = {}
@@ -46,6 +48,13 @@ def format_payload(payload, width=16):
         lines.append(line)
     return '\n'.join(lines)
 
+def block_ip(ip):
+    if ip not in blocked_ips:
+        print(f"{Fore.YELLOW}[#] Blocking IP: {ip}{Style.RESET_ALL}\n")
+        print(f"{Fore.WHITE}====================================================================\n")
+        os.system(f"iptables -A INPUT -s {ip} -j DROP")
+        blocked_ips.add(ip)
+
 def alert(msg):
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     print(f"{Fore.RED}[!] ALERT {Fore.BLUE}({timestamp}):\n{msg}{Style.RESET_ALL}")
@@ -70,6 +79,8 @@ def analyze_packet(packet):
                   f"  To:   {dst_ip}:{dst_port}\n"
                   f"  Payload:\n{payload_formatted}\n"
                   f"{Fore.WHITE}====================================================================\n")
+            block_ip(src_ip)
+
 def start_sniffing(interface="eth0"):
     print(f"{Fore.GREEN}[*] Starting hybrid IDS on {interface}...{Style.RESET_ALL}")
     sniff(iface=interface, prn=analyze_packet, store=False)
@@ -79,3 +90,4 @@ if __name__ == "__main__":
         start_sniffing(interface="eth0")
     except KeyboardInterrupt:
         print(f"{Fore.YELLOW}\n[+] IDS stopped by user.{Style.RESET_ALL}")
+
