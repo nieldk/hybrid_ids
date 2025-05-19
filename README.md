@@ -1,15 +1,55 @@
-# Hybrid Intrusion Detection System (IDS) in Python
+# Hybrid Intrusion Detection & Prevention  System (IDS/IPS) in Python
 
-A real-time Intrusion Detection System built in Python using both **signature-based detection** and **machine learning-based anomaly detection**.
+This project combines the functionality of an Intrusion Detection System (IDS) with an Intrusion Prevention System (IPS), written entirely in Python.
 
-## Features
+---
 
-- Real-time packet sniffing using Scapy
-- Signature-based alerts for suspicious IPs and ports
-- Anomaly detection with Isolation Forest (Scikit-learn)
-- Terminal alerts with timestamps and colorized output
-- Blocking detected source IPs with iptables (IPS functionality)
-- Easily extendable and modular Python code
+## Real-Time Packet Inspection
+
+- Uses **Scapy** to sniff live traffic from a specified network interface.
+- Extracts useful metadata per packet:
+  - Total packet length
+  - Time-to-Live (TTL)
+  - Protocol type (TCP, UDP, etc.)
+  - Size of source payload bytes
+
+---
+
+## Anomaly Detection (IDS)
+
+- Powered by **Isolation Forest**, an unsupervised machine learning model.
+- Trained on 200 live packets to establish a baseline of normal traffic behavior.
+- Flags statistically unusual traffic patterns as potential intrusions.
+
+---
+
+## Automatic Intrusion Prevention (IPS)
+
+- When an anomaly is detected:
+  - Identifies the **source IP** of the offending packet.
+  - Executes `iptables` to **block the IP** dynamically.
+  - Ensures future traffic from the attacker is dropped.
+
+---
+
+## Intelligent Alerts
+
+- Alerts include detailed context:
+  - **Source IP and Port**
+  - **Destination IP and Port**
+  - **Timestamp**
+  - **Packet Payload**, shown in:
+    - **Hexadecimal**
+    - **ASCII**, for human readability
+- Outputs are color-coded for visibility in terminal logs.
+
+---
+
+## Lightweight & Extensible
+
+- Pure Python implementation — no kernel modules.
+- Easy to modify detection logic or add new defenses (e.g. email alerts, database logging).
+
 
 ## Demo
 
