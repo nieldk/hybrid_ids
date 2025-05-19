@@ -80,6 +80,7 @@ def analyze_packet(packet):
                   f"  Payload:\n{payload_formatted}\n"
                   f"{Fore.WHITE}====================================================================\n")
             block_ip(src_ip)
+            print(f"{Fore.YELLOW}[*] blocked_ips {blocked_ips}\n")
 
 def start_sniffing(interface="eth0"):
     print(f"{Fore.GREEN}[*] Starting hybrid IDS on {interface}...{Style.RESET_ALL}")
