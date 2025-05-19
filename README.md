@@ -16,7 +16,7 @@ A real-time Intrusion Detection System built in Python using both **signature-ba
 ```bash
 sudo python3 hybrid_ids.py
 ```
-![screenshot](demo.PNG)
+![screenshot](demo_IPS.PNG)
 ## Installation
 
 Install Python dependencies:
