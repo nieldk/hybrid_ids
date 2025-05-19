@@ -1,5 +1,5 @@
 
-# 🤝 Contributing to Hybrid IDS/IPS
+# Contributing to Hybrid IDS/IPS
 
 Thank you for considering contributing to this open-source Hybrid Intrusion Detection and Prevention System project!
 
@@ -7,23 +7,22 @@ We welcome bug fixes, feature enhancements, documentation improvements, and idea
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
-- `hybrid_ids_ips.py` — Main IDS/IPS Python script
+- `hybrid_ids.py` — Main IDS/IPS Python script
 - `INSTALL.md` — Installation and setup guide
 - `FEATURES.md` — Detailed feature list
 - `requirements.txt` — Python dependencies
-- `ids-ips.service` — Systemd service unit file (optional)
 
 ---
 
-## 🧰 Development Setup
+## Development Setup
 
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/yourusername/hybrid-ids-ips.git
-cd hybrid-ids-ips
+git clone https://github.com/nieldk/hybrid-ids.git
+cd hybrid-ids
 ```
 
 2. **Set up a virtual environment:**
@@ -37,12 +36,12 @@ pip install -r requirements.txt
 3. **Test locally** (requires root privileges):
 
 ```bash
-sudo python3 hybrid_ids_ips.py
+sudo python3 hybrid_ids.py
 ```
 
 ---
 
-## 💡 Contribution Guidelines
+## Contribution Guidelines
 
 - Write clear, descriptive commit messages.
 - For significant changes, open an issue first to discuss your proposal.
@@ -51,7 +50,7 @@ sudo python3 hybrid_ids_ips.py
 
 ---
 
-## 🧪 Testing
+## Testing
 
 While there’s no automated test suite yet, contributors are encouraged to:
 
@@ -60,7 +59,7 @@ While there’s no automated test suite yet, contributors are encouraged to:
 
 ---
 
-## 🚀 Submitting Pull Requests
+## Submitting Pull Requests
 
 1. Fork the repository
 2. Create a new branch (`feature/your-feature`)
@@ -71,8 +70,8 @@ We review all PRs and will respond as quickly as possible.
 
 ---
 
-## 📬 Questions or Suggestions?
+## Questions or Suggestions?
 
 Open an issue or start a discussion in the repository. We're open to all ideas for improving detection, response, and visualization.
 
-Thanks for contributing! 🛡️
+Thanks for contributing! 
