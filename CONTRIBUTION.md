@@ -21,7 +21,7 @@ We welcome bug fixes, feature enhancements, documentation improvements, and idea
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/nieldk/hybrid-ids.git
+git clone https://github.com/nieldk/hybrid_ids.git
 cd hybrid-ids
 ```
 
