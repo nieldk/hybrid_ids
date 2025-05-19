@@ -56,7 +56,7 @@ This project combines the functionality of an Intrusion Detection System (IDS) w
 ```bash
 sudo python3 hybrid_ids.py
 ```
-![screenshot](demo_IPS.PNG)
+![screenshot](demo1_IPS.PNG)
 
 # Installation Guide: Hybrid IDS/IPS with Systemd Integration
 
