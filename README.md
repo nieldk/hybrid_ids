@@ -8,6 +8,7 @@ A real-time Intrusion Detection System built in Python using both **signature-ba
 - Signature-based alerts for suspicious IPs and ports
 - Anomaly detection with Isolation Forest (Scikit-learn)
 - Terminal alerts with timestamps and colorized output
+- Blocking detected source IPs with iptables (IPS functionality)
 - Easily extendable and modular Python code
 
 ## Demo
