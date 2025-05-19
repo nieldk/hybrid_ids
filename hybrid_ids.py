@@ -1,4 +1,7 @@
-from scapy.all import sniff, IP, TCP, UDP
+import warnings
+from cryptography.utils import CryptographyDeprecationWarning
+with warnings.catch_warnings(action="ignore", category=CryptographyDeprecationWarning):
+    from scapy.all import sniff, IP, TCP, UDP
 from sklearn.ensemble import IsolationForest
 import pandas as pd
 import time
@@ -39,13 +42,13 @@ def format_payload(payload, width=16):
         chunk = payload[i:i + width]
         hex_bytes = ' '.join(f"{b:02x}" for b in chunk)
         ascii_bytes = ''.join(chr(b) if chr(b) in string.printable and b >= 32 else '.' for b in chunk)
-        line = f"{hex_bytes:<48}  {ascii_bytes}"
+        line = f"{Fore.YELLOW}{hex_bytes:<48}  {ascii_bytes}"
         lines.append(line)
     return '\n'.join(lines)
 
 def alert(msg):
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-    print(f"{Fore.RED}[!] ALERT ({timestamp}):\n{msg}{Style.RESET_ALL}")
+    print(f"{Fore.RED}[!] ALERT {Fore.BLUE}({timestamp}):\n{msg}{Style.RESET_ALL}")
 
 def analyze_packet(packet):
     global packet_history
@@ -62,11 +65,11 @@ def analyze_packet(packet):
             dst_port = packet.dport if (TCP in packet or UDP in packet) else "N/A"
             payload = bytes(packet.payload)[:64]  # Limit to 64 bytes for clarity
             payload_formatted = format_payload(payload)
-            alert(f"Anomalous packet detected:\n"
+            alert(f"{Fore.CYAN}Anomalous packet detected:\n"
                   f"  From: {src_ip}:{src_port}\n"
                   f"  To:   {dst_ip}:{dst_port}\n"
-                  f"  Payload:\n{payload_formatted}")
-
+                  f"  Payload:\n{payload_formatted}\n"
+                  f"{Fore.WHITE}====================================================================\n")
 def start_sniffing(interface="eth0"):
     print(f"{Fore.GREEN}[*] Starting hybrid IDS on {interface}...{Style.RESET_ALL}")
     sniff(iface=interface, prn=analyze_packet, store=False)
