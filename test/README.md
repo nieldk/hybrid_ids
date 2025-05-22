@@ -47,4 +47,4 @@ make clean
 ```bash
 sudo ./hybrid_ids
 ```
-![screenshot](demo2_IPS.PNG)
+![screenshot](demo3_IPS.PNG)
