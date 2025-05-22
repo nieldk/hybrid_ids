@@ -12,6 +12,7 @@
 #include <netinet/tcp.h>
 #include <netinet/udp.h>
 #include <arpa/inet.h>
+#include <csignal>
 
 using namespace std;
 
@@ -122,6 +123,26 @@ void packet_handler(u_char *, const struct pcap_pkthdr *header, const u_char *pa
     }
 }
 
+void handle_sigint(int sig) {
+    cout << "\n\n\033[35m[!] Caught SIGINT (Ctrl+C). Printing blocked IP statistics...\033[0m\n";
+
+    if (blocked_ips.empty()) {
+        cout << "\033[33m[*] No IPs were blocked during this session.\033[0m\n";
+    } else {
+        cout << "\033[36m[*] Total Blocked IPs: " << blocked_ips.size() << "\n";
+        cout << "[Blocked IPs]: ";
+        bool first = true;
+        for (const auto& ip : blocked_ips) {
+            if (!first) cout << ", ";
+            cout << ip;
+            first = false;
+        }
+        cout << "\033[0m\n";
+    }
+
+    exit(0);  // Gracefully exit
+}
+
 int main() {
     char errbuf[PCAP_ERRBUF_SIZE];
     const char *dev = "eth0";  // Change interface if needed
@@ -132,10 +153,11 @@ int main() {
         return 1;
     }
 
+    signal(SIGINT, handle_sigint);  // Register CTRL+C handler
+
     cout << "\033[32m[*] Starting hybrid IDS on " << dev << "...\033[0m\n";
     pcap_loop(handle, 0, packet_handler, nullptr);
 
     pcap_close(handle);
     return 0;
 }
-
