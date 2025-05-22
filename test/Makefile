@@ -4,6 +4,9 @@ CXX := g++
 TARGET := hybrid_ids
 SRC := hybrid_ids.cpp
 
+PREFIX = /usr/local
+BINDIR = $(PREFIX)/bin
+
 # Compiler flags
 CXXFLAGS := -std=c++17 -Wall -Wextra -Werror
 LDFLAGS := -lpcap
@@ -22,6 +25,14 @@ debug: $(TARGET)
 
 $(TARGET): $(SRC)
 	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
+
+install: $(TARGET)
+	install -Dm755 $(TARGET) $(BINDIR)/$(TARGET)
+	@echo "Installed $(TARGET) to $(BINDIR)/$(TARGET)"
+
+uninstall:
+	rm -f $(BINDIR)/$(TARGET)
+	@echo "Uninstalled $(TARGET) from $(BINDIR)"
 
 clean:
 	rm -f $(TARGET)
