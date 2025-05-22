@@ -75,6 +75,16 @@ void block_ip(const string& ip) {
             cerr << "[!] Failed to run iptables command for IP block: " << cmd << endl;
         }
         blocked_ips.insert(ip);
+
+        // Print blocked IPs list
+        cout << "\033[33m[Blocked IPs]: ";
+        bool first = true;
+        for (const auto& blocked : blocked_ips) {
+            if (!first) cout << ", ";
+            cout << blocked;
+            first = false;
+        }
+        cout << "\033[0m\n";
     }
 }
 
