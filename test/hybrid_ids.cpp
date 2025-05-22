@@ -123,7 +123,7 @@ void packet_handler(u_char *, const struct pcap_pkthdr *header, const u_char *pa
     }
 }
 
-void handle_sigint(int sig) {
+void handle_sigint([[maybe_unused]] int sig) {
     cout << "\n\n\033[35m[!] Caught SIGINT (Ctrl+C). Printing blocked IP statistics...\033[0m\n";
 
     if (blocked_ips.empty()) {
