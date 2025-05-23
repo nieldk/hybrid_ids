@@ -143,9 +143,25 @@ void handle_sigint([[maybe_unused]] int sig) {
     exit(0);  // Gracefully exit
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     char errbuf[PCAP_ERRBUF_SIZE];
     const char *dev = "eth0";  // Change interface if needed
+
+        // Handle command-line arguments
+    for (int i = 1; i < argc; ++i) {
+        string arg = argv[i];
+        if (arg == "-h" || arg == "--help") {
+            cout << "Usage: " << argv[0] << " [-i <interface>]\n"
+                 << "  -i <interface>   Specify network interface to capture (default: eth0)\n"
+                 << "  -h, --help       Show this help message\n";
+            return 0;
+        } else if (arg == "-i" && i + 1 < argc) {
+            dev = argv[++i];
+        } else {
+            cerr << "Unknown option: " << arg << "\nUse -h for help.\n";
+            return 1;
+        }
+    }
 
     pcap_t *handle = pcap_open_live(dev, BUFSIZ, 1, 1000, errbuf);
     if (!handle) {
